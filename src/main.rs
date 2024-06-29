@@ -36,7 +36,8 @@ fn main() {
     let mut commands: HashMap<&str, Command> = HashMap::new();
 
     commands.insert("echo", Command::new("echo", |args| {
-        println!("{}", args[1]);
+        let rest = args.iter().skip(1).fold(String::new(), |acc, arg| acc + " " + arg);
+        println!("{}", rest.trim());
     }));
 
     commands.insert("exit", Command::new("exit", |args| {
