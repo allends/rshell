@@ -30,7 +30,7 @@ fn main() {
 
     // Default command not found
     let command_not_found = Command::new("command_not_found", |args| {
-        println!("Command not found: {}", args[0]);
+        println!("{}: command not found", args[0]);
     });
 
     let mut commands: HashMap<&str, Command> = HashMap::new();
