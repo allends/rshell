@@ -2,6 +2,7 @@ use std::collections::HashMap;
 #[allow(unused_imports)]
 use std::io::{self, Write};
 
+#[derive(Debug, Clone)]
 struct Command {
     name: String,
     handler: fn(&Vec<String>),
@@ -32,11 +33,13 @@ fn main() {
         println!("Command not found: {}", args[0]);
     });
 
-    let mut commands = HashMap::new();
+    let mut commands: HashMap<&str, Command> = HashMap::new();
 
     commands.insert("echo", Command::new("echo", |args| {
         println!("{}", args[1]);
     }));
+
+    commands.insert(&command_not_found.name, command_not_found.clone());
 
 
     // Wait for user input
