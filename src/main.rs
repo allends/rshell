@@ -12,7 +12,7 @@ impl Command {
     fn new(name: &str, handler: fn(&Vec<String>)) -> Command {
         Command {
             name: name.to_string(),
-            handler: handler,
+            handler,
         }
     }
 
@@ -22,12 +22,11 @@ impl Command {
 }
 
 fn main() {
-    
-
     // Define the commands
 
     // Empty command
-    let empty_command = Command::new("", |_| {});
+    let empty_command = Command::new("", |_| {
+    });
 
     // Default command not found
     let command_not_found = Command::new("command_not_found", |args| {
@@ -38,6 +37,11 @@ fn main() {
 
     commands.insert("echo", Command::new("echo", |args| {
         println!("{}", args[1]);
+    }));
+
+    commands.insert("exit", Command::new("exit", |args| {
+        let status = args.get(1).unwrap_or(&String::from("0")).parse::<i32>().unwrap_or(0);
+        std::process::exit(status);
     }));
 
     commands.insert(&command_not_found.name, command_not_found.clone());
