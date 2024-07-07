@@ -47,6 +47,11 @@ fn main() {
         println!("{}: not found", command);
     }));
 
+    shell.add_command(Command::new("pwd", |_, _| {
+        let path = std::env::current_dir().unwrap();
+        println!("{}", path.display());
+    }));
+
     // Run the shell
     shell.run();
 }
