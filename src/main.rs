@@ -36,8 +36,12 @@ fn main() {
             println!("{} is a shell builtin", command);
             return;
         }
-        if shell.get_system_handler(command).is_some() {
-            println!("{} is a system command", command);
+
+        let system_handler = shell.get_system_handler(command);
+
+        if system_handler.is_some() {
+            let system_handler = system_handler.unwrap();
+            println!("{} is a {}", command, system_handler);
             return;
         }
         println!("{}: not found", command);
