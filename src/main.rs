@@ -41,7 +41,7 @@ fn main() {
 
         if system_handler.is_some() {
             let system_handler = system_handler.unwrap();
-            println!("{} is a {}", command, system_handler);
+            println!("{} is a {}/{}", command, system_handler, command);
             return;
         }
         println!("{}: not found", command);
