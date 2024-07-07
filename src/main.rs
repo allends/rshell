@@ -59,6 +59,21 @@ fn main() {
             return;
         }
         let path = path.unwrap();
+
+        if path == "~" {
+            let home = std::env::var("HOME");
+            if home.is_err() {
+                println!("cd: HOME not set");
+                return;
+            }
+            let home = home.unwrap();
+            let result = std::env::set_current_dir(&home);
+            if result.is_err() {
+                println!("cd: {}: No such file or directory", home);
+            }
+            return;
+        }
+
         let result = std::env::set_current_dir(path);
         if result.is_err() {
             println!("cd: {}: No such file or directory", path);
