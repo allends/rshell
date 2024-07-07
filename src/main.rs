@@ -52,6 +52,19 @@ fn main() {
         println!("{}", path.display());
     }));
 
+    shell.add_command(Command::new("cd", |args, _| {
+        let path = args.get(1);
+        if path.is_none() {
+            println!("cd: missing argument");
+            return;
+        }
+        let path = path.unwrap();
+        let result = std::env::set_current_dir(path);
+        if result.is_err() {
+            println!("cd: {}: No such file or directory", path);
+        }
+    }));
+
     // Run the shell
     shell.run();
 }
